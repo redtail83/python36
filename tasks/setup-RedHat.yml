@@ -1,0 +1,16 @@
+---
+# file: roles/python36/tasks/setup-RedHat.yml
+
+# install Python 3.6
+- name: Add IUS repository
+  yum: name=https://centos7.iuscommunity.org/ius-release.rpm
+
+- name: IUS repos is disabled by default
+  replace: dest=/etc/yum.repos.d/ius.repo regexp="enabled *= *1" replace="enabled=0"
+
+- name: be sure Python 3.6 is installed on RedHat family
+  package: name={{ item }} state=present enablerepo=ius
+  with_items:
+    - python36u
+    - python36u-devel
+    - python36u-pip

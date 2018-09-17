@@ -1,0 +1,24 @@
+---
+# file: roles/python36/tasks/setup-Debian.yml
+
+# install Python 3.6
+- name: Add Python 3.6 repository
+  apt_repository: repo='ppa:jonathonf/python-3.6'
+
+- name: be sure Python 3.6 is installed
+  apt: name={{ item }} state=present update_cache=yes
+  with_items:
+    - python3.6
+    - python3.6-dev
+
+# install pip
+- name: download pip install script from http://bootstrap.pypa.io
+  get_url:
+    url: https://bootstrap.pypa.io/get-pip.py
+    dest: /tmp
+    mode: 0644
+
+- name: Change the working directory to /tmp/ before executing the command.
+  shell: python3.6 get-pip.py
+  args:
+    chdir: /tmp/

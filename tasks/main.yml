@@ -1,0 +1,9 @@
+---
+# tasks file for python36
+
+# Include OS-specific installation tasks.
+- import_tasks: setup-RedHat.yml
+  when: ansible_os_family == 'RedHat'
+
+- import_tasks: setup-Debian.yml
+  when: ansible_os_family == 'Debian'
