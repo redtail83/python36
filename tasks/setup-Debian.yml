@@ -6,10 +6,11 @@
   apt_repository: repo='ppa:jonathonf/python-3.6'
 
 - name: be sure Python 3.6 is installed
-  apt: name={{ item }} state=present update_cache=yes
-  with_items:
-    - python3.6
-    - python3.6-dev
+  apt: name={{ packages }} state=present update_cache=yes
+  vars:
+    packages:
+      - python3.6
+      - python3.6-dev
 
 # install pip
 - name: download pip install script from http://bootstrap.pypa.io
